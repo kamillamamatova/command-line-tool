@@ -30,7 +30,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	// Creates a slice of runes to store all chars read from stdin
-	var input []rune
+	var output []rune
 
 	// Starts an infinite loop that reads input 1 rune at a time
 	for {
