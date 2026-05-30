@@ -10,6 +10,8 @@ import (
 	"io"
 	// OS functionality
 	"os"
+	"strings"
+	"unicode/utf8"
 )
 func main() {
 	// Gets info about standard input
