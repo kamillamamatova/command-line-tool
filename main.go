@@ -175,8 +175,32 @@ func main() {
 		lines = append(lines, string(input))
 	}
 
-	// Loops through every rune stored in the output slice
-	for j := 0; j < len(output); j++{
-		fmt.Printf("%c", output[j])
-	}
+	// ASCII art cow
+	var cow = `         \  ^__^
+          \ (oo)\_______
+        (__)\       )\/\
+            ||----w |
+            ||     ||
+        `
+
+	// Replaces tabs w/ spaces
+	lines = tabsToSpaces(lines)
+
+	// Finds the longest line length
+	maxwidth := calculateMaxWidth(lines)
+
+	// Pads all lines to the same width
+	messages = normalizeStringsLength(lines, maxwidth)
+
+	// Builds the speech balloon
+	balloon := buildBalloon(lines, maxwidth)
+
+	// Prints balloon
+	fmt.Println(balloon)
+
+	// Prints cow
+	fmt.Println(cow)
+
+	// Prints extra blank line
+	fmt.Println()
 }
