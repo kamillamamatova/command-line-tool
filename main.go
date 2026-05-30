@@ -7,7 +7,7 @@ import(
 	// Formatted I/O for printing output
 	"fmt"
 	// Basic I/O interfaces and utilities
-	"io"
+	//"io"
 	// OS functionality
 	"os"
 	"strings"
@@ -200,22 +200,24 @@ func main() {
 	flag.Parse()
 
 	// Creates a buffered reader that reads from standard input
-	reader := bufio.NewReader(os.Stdin)
+	//reader := bufio.NewReader(os.Stdin)
+
+	scanner := bufio.NewScanner(os.Stdin)
 
 	// Starts an infinite loop that reads input 1 rune at a time
-	for{
+	for scanner.Scan(){
 		// Reads a single rune from stdin
 		// The 2nd return value is ignored
-		line, _, err := reader.ReadRune()
+		//line, _, err := reader.ReadRune()
 
 		// Checks if an error occurred & the error is EOF (no more input to read)
-		if err != nil && err == io.EOF{
+		//if err != nil && err == io.EOF{
 			// Exits the loop when all input has been processed
-			break
-		}
+			//break
+		//}
 
 		// Adds the character that was read to the output slice
-		lines = append(lines, string(line))
+		lines = append(lines, scanner.Text())
 	}
 
 	// Replaces tabs w/ spaces
