@@ -80,6 +80,26 @@ func buildBalloon(lines []string, maxwidth int) string{
 	return strings.Join(ret, "\n")
 }
 
+// Converts all tabs found in the strings
+// found in the 'lines' slice to 4 spaces, to prevent
+// misalignments in counting the runes
+func tabsToSpaces(lines []string) []string{
+	// Slice that will store modified strings
+	var ret []string
+
+	// Loops through every line
+	for _, l := range lines{
+		// Replaces every tab with 4 spaces
+		l = strings.Replace(l, "\t", "    ", -1)
+
+		// Stores the modified line
+		ret = append(ret, l)
+	}
+
+	// Returns the updated slice
+	return ret
+}
+
 func main() {
 	// Gets info about standard input
 	// The 2nd return value is ignored using _
