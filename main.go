@@ -148,7 +148,7 @@ func printFigure(name string){
 	        ||     ||
 		`
 
-	var stegosaurus = `         \                      .       .
+	var dinosaur = `         \                      .       .
           \                    / ` + "`" + `.   .' "
            \           .---.  <    > <    >  .---.
             \          |    \  \ - ~ ~ - /  /    |
@@ -168,8 +168,8 @@ func printFigure(name string){
 	switch name{
 	case "cow":
 		fmt.Println(cow)
-	case "stegosaurus":
-		fmt.Println(stegosaurus)
+	case "dinosaur":
+		fmt.Println(dinosaur)
 	default:
 		fmt.Println("Unknown figure.")
 	}
@@ -196,7 +196,7 @@ func main() {
 	var figure string
 	// Defined a command line flag "-f" that lets the user choose
 	// which ASCII figure the user wants to choose
-	flag.StringVar(&figure, "f", "cow", "the figure name. Valid values are `cow` and `stegosaurus`")
+	flag.StringVar(&figure, "f", "cow", "the figure name. Valid values are `cow` and `dinosaur`")
 	flag.Parse()
 
 	// Creates a buffered reader that reads from standard input
