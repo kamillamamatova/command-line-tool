@@ -120,6 +120,24 @@ func calculateMaxWidth(lines []string) int{
 	return w
 }
 
+// Takes a slice of strings and appends to each one a
+// # of spaces needed to have the all the same # of runes
+func normalizeStringsLength(lines []string, maxwidth int) []string{
+	// Slice that will store the padded strings
+	var ret []string
+
+	// Loops through every line
+	for _, l := range lines{
+		// Adds spaces to make the line length = to maxwidth
+		s := l + strings.Repeat(" ", maxwidth - utf8.RuneCountInString(l))
+
+		// Stores the padded line
+		ret = append(ret, s)
+	}
+
+	return ret
+}
+
 func main() {
 	// Gets info about standard input
 	// The 2nd return value is ignored using _
