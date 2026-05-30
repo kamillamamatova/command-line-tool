@@ -100,6 +100,26 @@ func tabsToSpaces(lines []string) []string{
 	return ret
 }
 
+// Given a slice of strings, returns the length of
+// the string w/ max length
+func calculateMaxWidth(lines []string) int{
+	// Current max width found
+	w := 0
+
+	// Loops through all lines
+	for _, l := range lines{
+		// Counts Unicode chars in the line
+		len := utf8.RuneCountInString(l)
+
+		// Updates max width if this line is longer
+		if len > w {
+			w = len
+		}
+	}
+
+	return w
+}
+
 func main() {
 	// Gets info about standard input
 	// The 2nd return value is ignored using _
