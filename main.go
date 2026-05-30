@@ -28,7 +28,7 @@ func buildBalloon(lines []string, maxwidth int) string{
 	var ret []string
 
 	// Border chars used for diff positions in the balloon
-	borders = []string{"/", "\\", "\\", "/". "|", "<", ">"}
+	borders = []string{"/", "\\", "\\", "/", "|", "<", ">"}
 
 	// Creates the top border using _s
 	top := " " + strings.Repeat("_", maxwidth+2)
@@ -46,8 +46,8 @@ func buildBalloon(lines []string, maxwidth int) string{
 
 		// Adds the line to output
 		ret = append(ret, s)
-	}
-	else{
+	// Apparently Go requires else to be on the same line as the }
+	} else{
 		// Creates the first line of multi line balloon: / text \
 		s := fmt.Sprintf(`%s %s %s`, borders[0], lines[0], borders[1])
 
@@ -163,7 +163,7 @@ func main() {
 	for{
 		// Reads a single rune from stdin
 		// The 2nd return value is ignored
-		input, _, err := reader.ReadRune()
+		line, _, err := reader.ReadRune()
 
 		// Checks if an error occurred & the error is EOF (no more input to read)
 		if err != nil && err == io.EOF{
@@ -172,7 +172,7 @@ func main() {
 		}
 
 		// Adds the character that was read to the output slice
-		lines = append(lines, string(input))
+		lines = append(lines, string(line))
 	}
 
 	// ASCII art cow
@@ -190,10 +190,10 @@ func main() {
 	maxwidth := calculateMaxWidth(lines)
 
 	// Pads all lines to the same width
-	messages = normalizeStringsLength(lines, maxwidth)
+	messages := normalizeStringsLength(lines, maxwidth)
 
 	// Builds the speech balloon
-	balloon := buildBalloon(lines, maxwidth)
+	balloon := buildBalloon(messages, maxwidth)
 
 	// Prints balloon
 	fmt.Println(balloon)
