@@ -138,6 +138,42 @@ func normalizeStringsLength(lines []string, maxwidth int) []string{
 	return ret
 }
 
+func printFigure(){
+	// ASCII art cow
+	var cow = `         \  ^__^
+          \ (oo)\_______
+	    (__)\       )\/\
+	        ||----w |
+	        ||     ||
+		`
+
+	var stegosaurus = `         \                      .       .
+          \                    / ` + "`" + `.   .' "
+           \           .---.  <    > <    >  .---.
+            \          |    \  \ - ~ ~ - /  /    |
+          _____           ..-~             ~-..-~
+         |     |   \~~~\\.'                    ` + "`" + `./~~~/
+        ---------   \__/                         \__/
+       .'  O    \     /               /       \  "
+      (_____,    ` + "`" + `._.'               |         }  \/~~~/
+       ` + "`" + `----.          /       }     |        /    \__/
+             ` + "`" + `-.      |       /      |       /      ` + "`" + `. ,~~|
+                 ~-.__|      /_ - ~ ^|      /- _      ` + "`" + `..-'
+                      |     /        |     /     ~-.     ` + "`" + `-. _  _  _
+                      |_____|        |_____|         ~ - . _ _ _ _ _>
+
+    `
+
+	switch name{
+	case "cow":
+		fmt.Println(cow)
+	case "stegosaurus":
+		fmt.Println(stegosaurus)
+	default:
+		fmt.Println(cow)
+	}
+}
+
 func main() {
 	// Gets info about standard input
 	// The 2nd return value is ignored using _
@@ -155,6 +191,12 @@ func main() {
 
 	// Slice that will store all input lines
 	var lines []string
+
+	var figure string
+	// Defined a command line flag "-f" that lets the user choose
+	// which ASCII figure the user wants to choose
+	flag.StringVar(&figure, "f", "cow", "the figure name. Valid values are `cow` and `stegosaurus`")
+	flag.Parse()
 
 	// Creates a buffered reader that reads from standard input
 	reader := bufio.NewReader(os.Stdin)
@@ -175,14 +217,6 @@ func main() {
 		lines = append(lines, string(line))
 	}
 
-	// ASCII art cow
-	var cow = `         \  ^__^
-          \ (oo)\_______
-        (__)\       )\/\
-            ||----w |
-            ||     ||
-        `
-
 	// Replaces tabs w/ spaces
 	lines = tabsToSpaces(lines)
 
@@ -198,8 +232,8 @@ func main() {
 	// Prints balloon
 	fmt.Println(balloon)
 
-	// Prints cow
-	fmt.Println(cow)
+	// Prints figure
+	printFigure(figure)
 
 	// Prints extra blank line
 	fmt.Println()
