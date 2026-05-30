@@ -1,7 +1,7 @@
 // Main package is required for executable Go programs
 package main
 
-import (
+import(
 	// Buffered I/O functionality for reading effeciency
 	"bufio"
 	// Formatted I/O for printing output
@@ -13,13 +13,80 @@ import (
 	"strings"
 	"unicode/utf8"
 )
+
+// Takes a slice of strings of max width and prepends/appends
+// margins on first and last lines, at start and end of each line,
+// and retunrs a string w/ the contents of the balloon
+func buildBalloon(lines []string, maxwidth int) string{
+	// Stores the balloon border chars
+	var borders []string
+
+	// # of lines in the message
+	count := len(lines)
+
+	// Slice that will store all balloon lines
+	var ret []string
+
+	// Border chars used for diff positions in the balloon
+	borders = []string{"/", "\\", "\\", "/". "|", "<", ">"}
+
+	// Creates the top border using _s
+	top := " " + strings.Repeat("_", maxwidth+2)
+
+	// Creates the bottom border using -s
+	bottom := " " + strings.Repeat("-", maxwidth+2)
+
+	// Adds the top border to output
+	ret = append(ret, top)
+
+	// Special case
+	if count == 1{
+		// Creates single line balloon format: < text >
+		s := fmt.Sprintf("%s %s %s", borders[5], lines[0], borders[6])
+
+		// Adds the line to output
+		ret = append(ret, s)
+	}
+	else{
+		// Creates the first line of multi line balloon: / text \
+		s := fmt.Sprintf(`%s %s %s`, borders[0], lines[0], borders[1])
+
+		// Adds the first line
+		ret = append(ret, s)
+
+		// Starts at the second line
+		i := 1
+
+		// Processes all middle lines
+		for ; i < count - 1; i++{
+			// Formats middle line: | text |
+			s = fmt.Sprintf(`%s %s %s`, borders[4], lines[i], borders[4])
+		
+			// Adds the middle line
+			ret = append(ret, s)
+		}
+
+		// Creates last line: \ text /
+		s = fmt.Sprintf(`%s %s %s`, borders[2], lines[i], borders[3])
+
+		// Adds last line
+		ret = append(ret, s)
+	}
+
+	// Adds the bottom border
+	ret = append(ret, bottom)
+
+	// Joins all balloon lines together w/ newline chars
+	return strings.Join(ret, "\n")
+}
+
 func main() {
 	// Gets info about standard input
 	// The 2nd return value is ignored using _
 	info, _ := os.Stdin.Stat()
 
 	// Checks if stdin is connected directly to a terminal instead of a pipe
-	if info.Mode()&os.ModeCharDevice != 0 {
+	if info.Mode()&os.ModeCharDevice != 0{
 		fmt.Println("The command is intended to work with pipes.")
 
 		fmt.Println("Usage: fortune | gocowsay")
@@ -35,13 +102,13 @@ func main() {
 	var output []rune
 
 	// Starts an infinite loop that reads input 1 rune at a time
-	for {
+	for{
 		// Reads a single rune from stdin
 		// The 2nd return value is ignored
 		input, _, err := reader.ReadRune()
 
 		// Checks if an error occurred & the error is EOF (no more input to read)
-		if err != nil && err == io.EOF {
+		if err != nil && err == io.EOF{
 			// Exits the loop when all input has been processed
 			break
 		}
@@ -51,7 +118,7 @@ func main() {
 	}
 
 	// Loops through every rune stored in the output slice
-	for j := 0; j < len(output); j++ {
+	for j := 0; j < len(output); j++{
 		fmt.Printf("%c", output[j])
 	}
 }
