@@ -153,11 +153,11 @@ func main() {
 		return
 	}
 
+	// Slice that will store all input lines
+	var lines []string
+
 	// Creates a buffered reader that reads from standard input
 	reader := bufio.NewReader(os.Stdin)
-
-	// Creates a slice of runes to store all chars read from stdin
-	var output []rune
 
 	// Starts an infinite loop that reads input 1 rune at a time
 	for{
@@ -172,7 +172,7 @@ func main() {
 		}
 
 		// Adds the character that was read to the output slice
-		output = append(output, input)
+		lines = append(lines, string(input))
 	}
 
 	// Loops through every rune stored in the output slice
