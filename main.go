@@ -12,6 +12,7 @@ import(
 	"os"
 	"strings"
 	"unicode/utf8"
+	"flag"
 )
 
 // Takes a slice of strings of max width and prepends/appends
@@ -138,7 +139,7 @@ func normalizeStringsLength(lines []string, maxwidth int) []string{
 	return ret
 }
 
-func printFigure(){
+func printFigure(name string){
 	// ASCII art cow
 	var cow = `         \  ^__^
           \ (oo)\_______
@@ -170,7 +171,7 @@ func printFigure(){
 	case "stegosaurus":
 		fmt.Println(stegosaurus)
 	default:
-		fmt.Println(cow)
+		fmt.Println("Unknown figure.")
 	}
 }
 
